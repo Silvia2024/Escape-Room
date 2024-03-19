@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Form</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="form__section">
+            <div class="container">
+                <form action="player.html" class="form__part">
+                    <input id="image-1" class="emoji" type="text" maxlength="1" value="🔑" />
+                    <label for="one">Descrizione 1</label>
+                    <textarea name="" id="desc-1" cols="30" rows="10"></textarea
+                    ><br />
+
+                    <input id="image-2" class="emoji" type="text" maxlength="1" value="✋" />
+                    <label for="one">Descrizione 2</label>
+                    <textarea name="" id="desc-2" cols="30" rows="10"></textarea
+                    ><br />
+
+                    <input id="image-3" class="emoji" type="text" maxlength="1" value="💎" />
+                    <label for="one">Descrizione 3 </label>
+                    <textarea name="" id="desc-3" cols="30" rows="10"></textarea
+                    ><br />
+                    
+                    <input id="image-4" class="emoji" type="text" maxlength="1" value="⛏️" />
+                    <label for="one">Descrizione 4</label>
+                    <textarea name="" id="desc-4" cols="30" rows="10"></textarea
+                    ><br />
+
+                    <input type="submit" value="salva" />
+                </form>
+            </div>
+        </div>
+
+
+            <script>
+      
+                const form = document.querySelector("form");
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    for (let i = 1; i < 5; i++) {
+                        const image = document.getElementById(
+                            `image-${i}`
+                        ).value;
+                        const desc = document.getElementById(`desc-${i}`).value;
+                        localStorage.setItem(`image-${i}`, image);
+                        localStorage.setItem(`desc-${i}`, desc);
+                    }
+                });
+            </script>
+        </div>
+    </body>
+</html>

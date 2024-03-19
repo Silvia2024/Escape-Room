@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Form Page</title>
+</head>
+
+<body>
+    <section class="form__section">
+        <div class="container">
+            <form action="player.html" class="form__part">
+                <div class="message__box">
+                    <div class="message" id="first_message">
+                        <h2>1° Indizio</h2>
+                        <label for="one">Aggiungi icona</label>
+                        <input id="image-1" class="emoji" type="text" maxlength="1" value="🔑" />
+                        <label for="one">Scrivi il primo indizio</label>
+                        <textarea name="" id="desc-1" cols="30" rows="10"></textarea><br />
+                        <a href="" id="first_button">Aggiungi il secondo indizio</a>
+                    </div>
+
+                    <div class="message" id="second_message">
+                        <h2>2° Indizio</h2>
+                        <label for="one">Aggiungi Icona</label>
+                        <input id="image-2" class="emoji" type="text" maxlength="1" value="✋" />
+                        <label for="one">Scrivi il secondo indizio</label>
+                        <textarea name="" id="desc-2" cols="30" rows="10"></textarea><br />
+                        <a href="#" id="second_button">Aggiungi il terzo indizio</a>
+                    </div>
+
+                    <div class="message" id="third_message">
+                        <h2>3° Indizio</h2>
+                        <label for="one">Aggiungi Icona </label>
+                        <input id="image-3" class="emoji" type="text" maxlength="1" value="💎" />
+                        <label for="one">Scrivi il secondo indizio</label>
+                        <textarea name="" id="desc-3" cols="30" rows="10"></textarea><br />
+                        <a href="#" id="third_button">Aggiungi il quarto indizio</a>
+                    </div>
+
+                    <div class="message" id="fourth_message">
+                        <h2>4° Indizio</h2>
+                        <label for="one">Aggiungi Icona</label>
+                        <input id="image-4" class="emoji" type="text" maxlength="1" value="⛏️" />
+                        <label for="one">Aggiungi Indizio</label>
+                        <textarea name="" id="desc-4" cols="30" rows="10"></textarea><br />
+                        <a href="#" id="fourth_button">Inizializza</a>
+                    </div>
+                </div>
+                <div class="pre_start">
+                    <div class="pre_start-sotto">
+                        <input type="submit" value="INIZIA LA PARTITA" id="button_exec" href="player.html" />
+                    </div>
+                </div>
+            </form>
+            <div class="pre_start-sopra">
+                <h2 id="pre_start-testo">Consegna il dispositivo allo sfidante</h2>
+                <div class="countdown-circle" id="countdown-circle"></div>
+            </div>
+            
+        </div>
+    </section>
+    <script>
+
+        // Seleziona tutti i messaggi e i bottoni utilizzando gli ID specifici
+        const firstMessage = document.getElementById('first_message');
+        const secondMessage = document.getElementById('second_message');
+        const thirdMessage = document.getElementById('third_message');
+        const fourthMessage = document.getElementById('fourth_message');
+
+        const firstButton = document.getElementById('first_button');
+        const secondButton = document.getElementById('second_button');
+        const thirdButton = document.getElementById('third_button');
+        const fourthButton = document.getElementById('fourth_button');
+
+        function addMoveLeftOnClick(button, message) {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                message.classList.add('move-left');
+            });
+        }
+        function addMoveRightOnClick(button, message) {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                message.classList.add('move-right');
+            });
+        }
+
+        addMoveLeftOnClick(firstButton, firstMessage);
+        addMoveRightOnClick(secondButton, secondMessage);
+        addMoveLeftOnClick(thirdButton, thirdMessage);
+        addMoveRightOnClick(fourthButton, fourthMessage);
+
+
+
+
+        const submitButton = document.querySelector('.pre_start input[type="submit"]');
+        const countdownCircle = document.getElementById('countdown-circle');
+        const preStartText = document.getElementById('pre_start-testo');
+        const buttonExec = document.getElementById('button_exec');
+    
+        countdownCircle.style.display = 'none';
+
+        submitButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Previene l'azione di default del bottone
+
+            // Mostra il cerchio di countdown
+            countdownCircle.style.display = 'flex';
+            preStartText.style.display = 'none';
+            buttonExec.style.display = 'none';
+
+            // Inizia il countdown
+            let countdown = 5;
+            countdownCircle.textContent = countdown;
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownCircle.textContent = countdown;
+                if (countdown === 0) {
+                    clearInterval(countdownInterval);
+                    countdownCircle.style.display = 'none';
+
+                    // Attiva il link qui
+                    window.location.href = submitButton.getAttribute('href');
+                }
+            }, 1000);
+        });
+
+    
+            // ...
+
+            submitButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Previene l'azione di default del bottone
+
+                for (let i = 1; i < 5; i++) {
+                    const image = document.getElementById(`image-${i}`).value;
+                    const desc = document.getElementById(`desc-${i}`).value;
+                    localStorage.setItem(`image-${i}`, image);
+                    localStorage.setItem(`desc-${i}`, desc);
+                }
+
+                // Resto del codice...
+            });
+
+            // ...
+   
+
+         const form = document.querySelector("form");
+         form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            for (let i = 1; i < 5; i++) {
+                const image = document.getElementById(
+                     `image-${i}`
+                ).value;
+                 const desc = document.getElementById(`desc-${i}`).value;
+                 localStorage.setItem(`image-${i}`, image);
+                 localStorage.setItem(`desc-${i}`, desc);
+            }
+         });
+
+
+
+    </script>
+</body>
+
+</html>

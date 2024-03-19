@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PLayer Page</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="player__section">
+
+            <div id="countdown">
+                <div class="time-part" id="minutes">05</div>
+                <div class="time-part" id="seconds">00</div>
+                <div class="time-part" id="deciseconds">00</div>
+            </div>
+            <div class="inventario__box">
+                <h2>inventario</h1>
+                    <div class="inventario">
+                        <div id="image-1" class="obj">1</div>
+                        <div id="image-2" class="obj">2</div>
+                        <div id="image-3" class="obj">3</div>
+                        <div id="image-4" class="obj">4</div>
+                    </div>
+            </div>
+        </div>
+        <div class="indizio_da_cercare" id="toFound">
+                <div class="indizio_corretto">
+                <p class="indizio_trovato" id="indiziotrovato">Indizio Trovato</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        let countdownTime = 1 * 60 * 10;
+
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+        const decisecondsElement = document.getElementById('deciseconds');
+
+        // Inizia il countdown
+        const countdownInterval = setInterval(() => {
+            // Calcola i minuti, i secondi e i decimi di secondo
+            const minutes = Math.floor(countdownTime / 600);
+            const seconds = Math.floor((countdownTime % 600) / 10);
+            const deciseconds = countdownTime % 10;
+
+            // Aggiorna il testo del countdown
+            minutesElement.textContent = minutes < 10 ? '0' + minutes : minutes;
+            secondsElement.textContent = seconds < 10 ? '0' + seconds : seconds;
+            decisecondsElement.textContent = deciseconds;
+
+            countdownTime--;
+
+            // Se il countdown arriva a 0, ferma l'intervall
+            if (countdownTime < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector(".indizio_corretto").innerHTML = 'HAI PERSO';
+            restart = document.createElement("button");
+                restart.textContent = "Nuova Partita";
+                restart.style.cursor = "pointer";
+                document.querySelector(".indizio_da_cercare").appendChild(restart);
+
+            restart.addEventListener("click", function () {
+                window.location.href = "index.html";
+                
+            });
+
+            ritenta = document.createElement("button");
+                ritenta.textContent = "Ritenta";
+                ritenta.style.cursor = "pointer";
+                document.querySelector(".indizio_da_cercare").appendChild(ritenta);
+
+                ritenta.addEventListener("click", function () {
+                    window.location.href = "player.html";
+                });
+            }
+        }, 100);
+
+        
+
+
+
+        for (let i = 1; i < 5; i++) {
+            const image = localStorage.getItem(`image-${i}`);
+            const desc = localStorage.getItem(`desc-${i}`);
+            const obj = document.getElementById(`image-${i}`);
+            obj.innerHTML = image;
+            obj.setAttribute("title", desc);
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let id = urlParams.get("id");
+        if (id === null) {
+            id = 0;
+        }
+
+        if (id > 0) {
+            const foundImage = document.querySelector("#image-" + id);
+            foundImage.classList.add("trovato");
+            foundImage.style.backgroundColor = 'green'; // Aggiungi un evidenziazione verde
+        }
+
+        if (id < 4) {
+
+        const indizio = localStorage.getItem("desc-" + (parseInt(id) + 1));
+        document.querySelector(".indizio_corretto").innerHTML = indizio;
+    } else {
+
+            // Ferma il timer
+            clearInterval(countdownInterval);
+
+            // Mostra il messaggio "HAI VINTO"
+            document.querySelector(".indizio_corretto").innerHTML = 'HAI VINTO';
+            restart = document.createElement("button");
+                restart.textContent = "Nuova Partita";
+                restart.style.cursor = "pointer";
+                document.querySelector(".indizio_da_cercare").appendChild(restart);
+
+                restart.addEventListener("click", function () {
+                    window.location.href = "index.html";
+                });
+            ritenta = document.createElement("button");
+                ritenta.textContent = "Ritenta";
+                ritenta.style.cursor = "pointer";
+                document.querySelector(".indizio_da_cercare").appendChild(ritenta);
+
+                ritenta.addEventListener("click", function () {
+                    window.location.href = "player.html";
+                });
+    }
+
+
+
+        // Controlla se tutti gli elementi image sono stati trovati
+    //    const allFound = Array.from({length: 4}, (_, i) => i + 1)
+      //  .every(i => document.querySelector("#image-" + i).classList.contains("trovato"));
+
+        //if (allFound) {
+
+        //}
+
+        
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+

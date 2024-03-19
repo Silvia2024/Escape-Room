@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+        <div class="player__section">
+            <div class="container">
+                <div class="inventario">
+                    <div id="image-1" class="obj">1</div>
+                    <div id="image-2" class="obj">2</div>
+                    <div id="image-3" class="obj">3</div>
+                    <div id="image-4" class="obj">4</div>
+                </div>
+                <div class="indizio_corretto"></div>
+            </div>
+        </div>
+
+        <script>
+            for (let i = 1; i < 5; i++) {
+                const image = localStorage.getItem(`image-${i}`);
+                const desc = localStorage.getItem(`desc-${i}`);
+                const obj = document.getElementById(`image-${i}`);
+                obj.innerHTML = image;
+                obj.setAttribute("title", desc);
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get("id");
+            if (id === null) {
+                id = 0;
+            }
+
+            if (id > 0) {
+                document.querySelector("#image-" + id).classList.add("trovato");
+            }
+
+            const indizio = localStorage.getItem("desc-" + (parseInt(id) + 1));
+            document.querySelector(".indizio_corretto").innerHTML = indizio;
+        </script>
+    </body>
+</html>
